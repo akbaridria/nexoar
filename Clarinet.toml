@@ -4,10 +4,26 @@ description = ''
 authors = []
 telemetry = true
 cache_dir = './.cache'
-requirements = []
+
+[[project.requirements]]
+contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-oracle-v4'
+
+[[project.requirements]]
+contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-storage-v4'
+
+[[project.requirements]]
+contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3'
+
+[[project.requirements]]
+contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4'
 
 [contracts.nexoar]
 path = 'contracts/nexoar.clar'
+clarity_version = 3
+epoch = 'latest'
+
+[contracts.traits]
+path = 'contracts/traits.clar'
 clarity_version = 3
 epoch = 'latest'
 
