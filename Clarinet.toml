@@ -16,13 +16,14 @@ contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3'
 
 [[project.requirements]]
 contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4'
-[contracts.nexoar]
-path = 'contracts/nexoar.clar'
+
+[contracts.liquidity-manager]
+path = 'contracts/liquidity-manager.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.traits]
-path = 'contracts/traits.clar'
+[contracts.nexoar]
+path = 'contracts/nexoar.clar'
 clarity_version = 3
 epoch = 'latest'
 
@@ -30,6 +31,7 @@ epoch = 'latest'
 path = 'contracts/vault-tracker.clar'
 clarity_version = 3
 epoch = 'latest'
+
 [repl.analysis]
 passes = ['check_checker']
 

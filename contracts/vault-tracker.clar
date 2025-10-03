@@ -1,19 +1,19 @@
-;; Constants
+;; constants
 (define-constant PRECISION u1000000) ;; 1e6
 (define-constant CONTRACT-OWNER tx-sender)
 
-;; Error Codes
+;; errors
 (define-constant ERR-INSUFFICIENT-BALANCE (err u100))
 (define-constant ERR-INSUFFICIENT-STAKE (err u101))
 (define-constant ERR-UNAUTHORIZED (err u102))
 
-;; Data Variables
+;; data vars
 (define-data-var total-staked uint u0)
 (define-data-var acc-reward-per-share int 0)
 (define-data-var last-reward-time uint u0)
 (define-data-var total-pnl int 0)
 
-;; Data Maps
+;; data maps
 (define-map providers
     principal
     {
@@ -23,70 +23,18 @@
     }
 )
 
-;; Private Helper Functions
-(define-private (get-pending-rewards (provider principal))
-    (match (map-get? providers provider)
-        provider-data (let (
-                (stake (get stake provider-data))
-                (reward-debt (get reward-debt provider-data))
-            )
-            (if (is-eq stake u0)
-                0
-                (-
-                    (/ (* (to-int stake) (var-get acc-reward-per-share))
-                        (to-int PRECISION)
-                    )
-                    reward-debt
-                )
-            )
-        )
-        0
-    )
-)
-
-(define-private (get-effective-balance (provider principal))
-    (match (map-get? providers provider)
-        provider-data (let (
-                (stake (get stake provider-data))
-                (pending-rewards (get-pending-rewards provider))
-                (effective-bal (+ (to-int stake) pending-rewards))
-            )
-            (if (is-eq stake u0)
-                u0
-                (if (> effective-bal 0)
-                    (to-uint effective-bal)
-                    u0
-                )
-            )
-        )
-        u0
-    )
-)
-
-(define-private (update-pool)
-    (begin
-        (if (<= stacks-block-height (var-get last-reward-time))
-            true
-            (var-set last-reward-time stacks-block-height)
-        )
-        true
-    )
-)
-
-;; Public Functions
+;; public functions
 (define-public (add-stake
         (provider principal)
         (amount uint)
     )
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .liquidity-manager) ERR-UNAUTHORIZED)
         (asserts! (>= amount u0) ERR-INSUFFICIENT-BALANCE)
         (update-pool)
 
         (match (map-get? providers provider)
-            existing-provider
-            (begin
-                ;; Update existing provider
+            existing-provider (begin
                 (map-set providers provider {
                     stake: (+ (get stake existing-provider) amount),
                     reward-debt: (+ (get reward-debt existing-provider)
@@ -96,7 +44,6 @@
                     last-update-time: stacks-block-height,
                 })
             )
-            ;; New provider
             (map-set providers provider {
                 stake: amount,
                 reward-debt: (/ (* (var-get acc-reward-per-share) (to-int amount))
@@ -107,14 +54,6 @@
         )
 
         (var-set total-staked (+ (var-get total-staked) amount))
-
-        (print {
-            event: "liquidity-added",
-            provider: provider,
-            amount: amount,
-            new-stake: (get stake (unwrap-panic (map-get? providers provider))),
-        })
-
         (ok true)
     )
 )
@@ -129,7 +68,7 @@
             (pending-rewards (get-pending-rewards provider))
         )
         (begin
-            (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
+            (asserts! (is-eq contract-caller .liquidity-manager) ERR-UNAUTHORIZED)
             (update-pool)
 
             (asserts! (<= amount effective-balance) ERR-INSUFFICIENT-BALANCE)
@@ -179,17 +118,6 @@
                         last-update-time: stacks-block-height,
                     })
                 )
-
-                (print {
-                    event: "liquidity-removed",
-                    provider: provider,
-                    stake-removed: stake-to-remove,
-                    remaining-stake: (match (map-get? providers provider)
-                        p (get stake p)
-                        u0
-                    ),
-                })
-
                 (ok amount)
             )
         )
@@ -198,7 +126,7 @@
 
 (define-public (distribute-pnl (pnl int))
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .liquidity-manager) ERR-UNAUTHORIZED)
         (if (is-eq (var-get total-staked) u0)
             (ok true)
             (begin
@@ -216,20 +144,63 @@
                     )
                     false
                 )
-
-                (print {
-                    event: "rewards-distributed",
-                    pnl: pnl,
-                    acc-reward-per-share: (var-get acc-reward-per-share),
-                })
-
                 (ok true)
             )
         )
     )
 )
 
-;; Read-Only Functions
+;; private functions
+(define-private (get-pending-rewards (provider principal))
+    (match (map-get? providers provider)
+        provider-data (let (
+                (stake (get stake provider-data))
+                (reward-debt (get reward-debt provider-data))
+            )
+            (if (is-eq stake u0)
+                0
+                (-
+                    (/ (* (to-int stake) (var-get acc-reward-per-share))
+                        (to-int PRECISION)
+                    )
+                    reward-debt
+                )
+            )
+        )
+        0
+    )
+)
+
+(define-private (get-effective-balance (provider principal))
+    (match (map-get? providers provider)
+        provider-data (let (
+                (stake (get stake provider-data))
+                (pending-rewards (get-pending-rewards provider))
+                (effective-bal (+ (to-int stake) pending-rewards))
+            )
+            (if (is-eq stake u0)
+                u0
+                (if (> effective-bal 0)
+                    (to-uint effective-bal)
+                    u0
+                )
+            )
+        )
+        u0
+    )
+)
+
+(define-private (update-pool)
+    (begin
+        (if (<= stacks-block-height (var-get last-reward-time))
+            true
+            (var-set last-reward-time stacks-block-height)
+        )
+        true
+    )
+)
+
+;; read only functions
 (define-read-only (get-provider-info (provider principal))
     (match (map-get? providers provider)
         provider-data (ok {

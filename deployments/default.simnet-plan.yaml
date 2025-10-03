@@ -103,18 +103,13 @@ plan:
             path: contracts/vault-tracker.clar
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: mock-nexoar
+            contract-name: liquidity-manager
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/mock-nexoar.clar
+            path: contracts/liquidity-manager.clar
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: nexoar
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/nexoar.clar
-            clarity-version: 3
-        - emulated-contract-publish:
-            contract-name: traits
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/traits.clar
             clarity-version: 3
       epoch: "3.2"
