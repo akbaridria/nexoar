@@ -63,6 +63,14 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
+            contract-name: sip-010-trait-ft-standard
+            emulated-sender: SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE
+            path: "./.cache/requirements/SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.clar"
+            clarity-version: 1
+      epoch: "2.0"
+    - id: 1
+      transactions:
+        - emulated-contract-publish:
             contract-name: wormhole-traits-v2
             emulated-sender: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM
             path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-traits-v2.clar"
@@ -106,6 +114,11 @@ plan:
             contract-name: liquidity-manager
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/liquidity-manager.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: mock-usda
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/mock-usda.clar
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: nexoar

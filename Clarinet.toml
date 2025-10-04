@@ -17,8 +17,15 @@ contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3'
 [[project.requirements]]
 contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4'
 
+[[project.requirements]]
+contract_id = 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard'
 [contracts.liquidity-manager]
 path = 'contracts/liquidity-manager.clar'
+clarity_version = 3
+epoch = 'latest'
+
+[contracts.mock-usda]
+path = 'contracts/mock-usda.clar'
 clarity_version = 3
 epoch = 'latest'
 
@@ -31,7 +38,6 @@ epoch = 'latest'
 path = 'contracts/vault-tracker.clar'
 clarity_version = 3
 epoch = 'latest'
-
 [repl.analysis]
 passes = ['check_checker']
 
