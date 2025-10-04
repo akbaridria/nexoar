@@ -209,6 +209,38 @@
     )
 )
 
+(define-public (add-liquidity (amount uint))
+    (begin
+        (asserts! (> amount u0) ERR-INVALID-PRICE)
+        (try! (contract-call? .mock-usda transfer amount tx-sender
+            (as-contract tx-sender) none
+        ))
+        (try! (contract-call? .liquidity-manager add-liquidity tx-sender amount))
+        (print {
+            event: "liquidity-added",
+            provider: tx-sender,
+            amount: amount,
+        })
+        (ok amount)
+    )
+)
+
+(define-public (remove-liquidity (amount uint))
+    (begin
+        (asserts! (> amount u0) ERR-INVALID-PRICE)
+        (try! (contract-call? .liquidity-manager remove-liquidity tx-sender amount))
+        (try! (contract-call? .mock-usda transfer amount (as-contract tx-sender)
+            tx-sender none
+        ))
+        (print {
+            event: "liquidity-removed",
+            provider: tx-sender,
+            amount: amount,
+        })
+        (ok amount)
+    )
+)
+
 (define-public (claim-protocol-revenue (recipient principal))
     (begin
         (asserts! (is-eq tx-sender (var-get contract-owner)) ERR-UNAUTHORIZED)

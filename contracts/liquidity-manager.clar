@@ -17,7 +17,7 @@
         (amount uint)
     )
     (begin
-        (asserts! (is-eq tx-sender .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
         (asserts! (> amount u0) ERR-INVALID-AMOUNT)
         (unwrap! (contract-call? .vault-tracker add-stake provider amount)
             ERR-INVALID-AMOUNT
@@ -32,7 +32,7 @@
         (amount uint)
     )
     (begin
-        (asserts! (is-eq tx-sender .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
         (let ((actual-amount (unwrap! (contract-call? .vault-tracker remove-stake provider amount)
                 ERR-INVALID-AMOUNT
             )))
@@ -47,7 +47,7 @@
 
 (define-public (lock-liquidity (amount uint))
     (begin
-        (asserts! (is-eq tx-sender .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
         (asserts!
             (<= (+ (var-get locked-liquidity) amount) (var-get total-liquidity))
             ERR-INSUFFICIENT-LIQUIDITY
@@ -59,7 +59,7 @@
 
 (define-public (unlock-liquidity (amount uint))
     (begin
-        (asserts! (is-eq tx-sender .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
         (asserts! (>= (var-get locked-liquidity) amount) ERR-INVALID-UNLOCK)
         (var-set locked-liquidity (- (var-get locked-liquidity) amount))
         (ok true)
@@ -68,7 +68,7 @@
 
 (define-public (distribute-pnl (pnl-amount int))
     (begin
-        (asserts! (is-eq tx-sender .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
         (unwrap! (contract-call? .vault-tracker distribute-pnl pnl-amount)
             ERR-INVALID-AMOUNT
         )
