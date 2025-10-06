@@ -121,6 +121,11 @@ plan:
             path: contracts/mock-usda.clar
             clarity-version: 3
         - emulated-contract-publish:
+            contract-name: nexoar-pricing
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/nexoar-pricing.clar
+            clarity-version: 3
+        - emulated-contract-publish:
             contract-name: nexoar
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/nexoar.clar

@@ -2,7 +2,7 @@
 (define-constant BTC_PRICE_FEED_ID 0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43)
 (define-constant PRECISION u1000000)
 (define-constant VOLATILITY u800000)
-(define-constant BASE-MULTIPLIER u100000)
+(define-constant BASE-MULTIPLIER u200000)
 (define-constant UTILIZATION-MULTIPLIER u200000)
 (define-constant PROTOCOL-FEE-PERCENTAGE u200000)
 
@@ -58,27 +58,23 @@
         (strike-price uint)
         (days uint)
         (is-call bool)
-        (premium-slippage uint)
         (size uint)
     )
     (begin
         (asserts! (>= size PRECISION) ERR-INVALID-PRICE)
         (let (
-                (spot-price (to-uint (unwrap-panic (get-price price-feed))))
-                (premium (unwrap-panic (calculate-premium spot-price strike-price is-call days size)))
+                (spot-price (unwrap-panic (get-price price-feed)))
+                (premium (contract-call? .nexoar-pricing calculate-premium spot-price
+                    strike-price days is-call
+                ))
+                (total-premium (/ (* size premium) u100))
                 (option-id (+ (var-get option-counter) u1))
                 (expiry (+ (unwrap-panic (get-stacks-block-info? time u0))
                     (* days u86400)
                 ))
-                (locked-liquidity (unwrap-panic (calculate-locked-liquidity size spot-price strike-price is-call
-                    days
-                )))
+                (locked-liquidity (unwrap-panic (calculate-locked-liquidity total-premium)))
             )
             (begin
-                (if is-call
-                    (asserts! (< strike-price spot-price) ERR-IN-THE-MONEY)
-                    (asserts! (> strike-price spot-price) ERR-IN-THE-MONEY)
-                )
                 (asserts!
                     (<= locked-liquidity
                         (unwrap-panic (contract-call? .liquidity-manager
@@ -87,8 +83,7 @@
                     )
                     ERR-INSUFFICIENT-LIQUIDITY
                 )
-                (asserts! (< premium-slippage premium) ERR-INSUFFICIENT-BALANCE)
-                (try! (contract-call? .mock-usda transfer premium tx-sender
+                (try! (contract-call? .mock-usda transfer total-premium tx-sender
                     (as-contract tx-sender) none
                 ))
                 (try! (contract-call? .liquidity-manager lock-liquidity
@@ -103,7 +98,7 @@
                     expiry: expiry,
                     size: size,
                     is-call: is-call,
-                    premium: premium,
+                    premium: total-premium,
                     locked-liquidity: locked-liquidity,
                     is-exercised: false,
                     profit: 0,
@@ -117,13 +112,13 @@
                     expiry: expiry,
                     size: size,
                     is-call: is-call,
-                    premium: premium,
+                    premium: total-premium,
                     locked-liquidity: locked-liquidity,
                     spot-price: spot-price,
                 })
                 (ok {
                     option-id: option-id,
-                    premium: premium,
+                    premium: total-premium,
                     expiry: expiry,
                     spot-price: spot-price,
                 })
@@ -158,8 +153,10 @@
                         ERR-OPTION-NOT-EXPIRED
                     )
                     (let (
-                            (spot-price (to-uint (unwrap-panic (get-price price-feed))))
-                            (payout (unwrap-panic (calculate-payout spot-price strike is-call size)))
+                            (spot-price (unwrap-panic (get-price price-feed)))
+                            (payout (unwrap-panic (contract-call? .nexoar-pricing calculate-payout
+                                spot-price strike is-call size
+                            )))
                             (protocol-fee (/ (* premium PROTOCOL-FEE-PERCENTAGE) PRECISION))
                             (liquidity-fee (- premium protocol-fee))
                         )
@@ -263,132 +260,9 @@
 )
 
 ;; read only functions
-(define-read-only (get-cap-multiplier (days uint))
-    (begin
-        (asserts! (>= days u1) ERR-INVALID-DURATION)
-        (asserts! (<= days u30) ERR-INVALID-DURATION)
-
-        (ok (if (<= days u7)
-            u125000
-            (if (<= days u14)
-                u150000
-                (if (<= days u21)
-                    u175000
-                    u200000
-                )
-            )
-        ))
-    )
-)
-
-(define-read-only (calculate-premium
-        (spot-price uint)
-        (strike-price uint)
-        (is-call bool)
-        (days uint)
-        (size uint)
-    )
-    (let (
-            (moneyness-multiplier (get-moneyness-multiplier spot-price strike-price is-call))
-            (sqrt-time (sqrti (/ (* days PRECISION) u365)))
-            (utilization-rate (unwrap-panic (contract-call? .liquidity-manager get-utilization-rate)))
-            (dynamic-multiplier (+ BASE-MULTIPLIER
-                (/ (* utilization-rate UTILIZATION-MULTIPLIER) PRECISION)
-            ))
-            (time-value (/
-                (* spot-price VOLATILITY sqrt-time dynamic-multiplier
-                    moneyness-multiplier size
-                )
-                (* PRECISION PRECISION PRECISION PRECISION PRECISION)
-            ))
-        )
-        (ok time-value)
-    )
-)
-
-(define-read-only (get-moneyness-multiplier
-        (spot uint)
-        (strike uint)
-        (is-call bool)
-    )
-    (let ((ratio (if is-call
-            (/ (* strike u100) spot)
-            (/ (* spot u100) strike)
-        )))
-        (if (<= ratio u105)
-            u1000000
-            (if (<= ratio u110)
-                u800000
-                (if (<= ratio u115)
-                    u600000
-                    (if (<= ratio u120)
-                        u400000
-                        (if (<= ratio u125)
-                            u2500000
-                            u1000000
-                        )
-                    )
-                )
-            )
-        )
-    )
-)
-
-(define-read-only (calculate-locked-liquidity
-        (size uint)
-        (spot-price uint)
-        (strike-price uint)
-        (is-call bool)
-        (days uint)
-    )
-    (let (
-            (cap-mult (unwrap-panic (get-cap-multiplier days)))
-            (capped-spot (if is-call
-                (/ (* spot-price cap-mult) PRECISION)
-                (/ (* spot-price PRECISION) cap-mult)
-            ))
-            (intrinsic (unwrap-panic (calculate-intrinsic-value capped-spot strike-price is-call)))
-        )
-        (ok (* intrinsic size))
-    )
-)
-
-(define-read-only (calculate-payout
-        (spot-price uint)
-        (strike-price uint)
-        (is-call bool)
-        (size uint)
-    )
-    (let ((intrinsic (unwrap-panic (calculate-intrinsic-value spot-price strike-price is-call))))
-        (ok (* intrinsic size))
-    )
-)
-
-(define-read-only (calculate-intrinsic-value
-        (spot-price uint)
-        (strike-price uint)
-        (is-call bool)
-    )
-    (if is-call
-        (if (> spot-price strike-price)
-            (ok (- spot-price strike-price))
-            (ok u0)
-        )
-        (if (< spot-price strike-price)
-            (ok (- strike-price spot-price))
-            (ok u0)
-        )
-    )
-)
-
-(define-read-only (max-of
-        (i1 uint)
-        (i2 uint)
-    )
-    (if (> i1 i2)
-        i1
-        i2
-    )
+(define-read-only (calculate-locked-liquidity (premium uint))
+    ;; TODO: need to readjust this formula
+    (ok (* u3 premium))
 )
 
 ;; private functions
@@ -406,7 +280,10 @@
                 get-price BTC_PRICE_FEED_ID
                 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-storage-v4
             )))
+            (price-denomination (pow 10 (* (get expo price-data) -1)))
+            ;; We'll adjust the price to its normal decimal representation.
+            (adjusted-price (to-uint (/ (get price price-data) price-denomination)))
         )
-        (ok (get price price-data))
+        (ok adjusted-price)
     )
 )

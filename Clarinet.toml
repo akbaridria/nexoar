@@ -34,6 +34,11 @@ path = 'contracts/nexoar.clar'
 clarity_version = 3
 epoch = 'latest'
 
+[contracts.nexoar-pricing]
+path = 'contracts/nexoar-pricing.clar'
+clarity_version = 3
+epoch = 'latest'
+
 [contracts.vault-tracker]
 path = 'contracts/vault-tracker.clar'
 clarity_version = 3
