@@ -284,6 +284,6 @@
             ;; We'll adjust the price to its normal decimal representation.
             (adjusted-price (to-uint (/ (get price price-data) price-denomination)))
         )
-        (ok adjusted-price)
+        (ok (* adjusted-price PRECISION))
     )
 )

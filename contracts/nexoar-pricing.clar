@@ -1,38 +1,70 @@
 (define-constant PRECISION u1000000)
-(define-constant VOLATILITY u80)
-(define-constant EXTRINSIC_RATE u5)
+(define-constant VOLATILITY u800000)
 (define-constant DAYS_PER_YEAR u365)
+(define-constant TIME_VALUE_COEFF u496000)
+(define-constant MAX_PCT_DISTANCE u500000)
 
-(define-read-only (get-moneyness-factor
+(define-private (abs-diff
+        (a uint)
+        (b uint)
+    )
+    (if (> a b)
+        (- a b)
+        (- b a)
+    )
+)
+
+(define-private (get-moneyness-distance
         (spot uint)
         (strike uint)
-        (is-call bool)
+    )
+    (if (<= strike u0)
+        PRECISION
+        (let ((diff (abs-diff spot strike)))
+            (/ (* diff PRECISION) strike)
+        )
+    )
+)
+
+(define-private (get-sqrt-time (duration uint))
+    (let ((scaled-input (/ (* duration (* PRECISION PRECISION)) DAYS_PER_YEAR)))
+        (sqrti scaled-input)
+    )
+)
+
+(define-private (calculate-time-value
+        (spot uint)
+        (strike uint)
+        (sqrt-time uint)
     )
     (let (
-            (ratio (if is-call
-                (/ (* spot u100) strike)
-                (/ (* strike u100) spot)
-            ))
-            (diff (if (> ratio u100)
-                (- ratio u100)
-                (- u100 ratio)
-            ))
-            ;; 0.005 * diff = decay rate
-            (decay (/ (* diff u5) u1000))
-            (base u1200000)
-            (m (if (> ratio u100)
-                (if (> base decay)
-                    (- base decay)
-                    u600000
-                )
-                (+ base decay)
-            ))
+            (vol-term (* strike VOLATILITY))
+            (numerator (* vol-term sqrt-time))
+            (denominator (* PRECISION PRECISION))
+            (base (/ numerator denominator))
         )
-        (if (> m u1500000)
-            u1500000
-            (if (< m u600000)
-                u600000
-                m
+        (let (
+                (base-with-coeff (/ (* base TIME_VALUE_COEFF) PRECISION))
+                (pct-dist (get-moneyness-distance spot strike))
+            )
+            (let (
+                    (decay-numerator (* pct-dist PRECISION))
+                    (decay-denominator MAX_PCT_DISTANCE)
+                    (raw-decay (if (> decay-denominator u0)
+                        (/ decay-numerator decay-denominator)
+                        PRECISION
+                    ))
+                    (clamped-decay (if (> raw-decay PRECISION)
+                        PRECISION
+                        raw-decay
+                    ))
+                )
+                (let ((one-minus-decay (if (> PRECISION clamped-decay)
+                        (- PRECISION clamped-decay)
+                        u0
+                    )))
+                    (/ (* base-with-coeff one-minus-decay) PRECISION)
+                )
             )
         )
     )
@@ -63,14 +95,10 @@
     )
     (let (
             (intrinsic (calculate-intrinsic spot strike is-call))
-            (extrinsic (/ (* strike EXTRINSIC_RATE) u100))
-            (time-ratio (/ (* duration PRECISION) DAYS_PER_YEAR))
-            (vol-mult (+ PRECISION (/ (* VOLATILITY time-ratio) u100)))
-            (moneyness (get-moneyness-factor spot strike is-call))
-            (base (+ intrinsic extrinsic))
-            (premium (/ (* (* base vol-mult) moneyness) PRECISION))
+            (sqrt-time (get-sqrt-time duration))
+            (time-value (calculate-time-value spot strike sqrt-time))
         )
-        premium
+        (+ intrinsic time-value)
     )
 )
 
@@ -81,6 +109,6 @@
         (size uint)
     )
     (let ((intrinsic (calculate-intrinsic spot strike is-call)))
-        (ok (* intrinsic size))
+        (ok (/ (* intrinsic size) u100))
     )
 )

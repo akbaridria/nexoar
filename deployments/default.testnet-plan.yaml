@@ -1,0 +1,113 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://api.testnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - requirement-publish:
+            contract-id: SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 8400
+            path: "./.cache/requirements/SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.clar"
+            clarity-version: 1
+      epoch: "2.0"
+    - id: 1
+      transactions:
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-traits-v2
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 5060
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-traits-v2.clar"
+            clarity-version: 3
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-traits-v2
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 18800
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-traits-v2.clar"
+            clarity-version: 3
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-governance-v3
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 237100
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-governance-v3.clar"
+            clarity-version: 3
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-oracle-v4
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 33910
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-oracle-v4.clar"
+            clarity-version: 3
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 129130
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3.clar"
+            clarity-version: 3
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-storage-v4
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 43230
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-storage-v4.clar"
+            clarity-version: 3
+        - requirement-publish:
+            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4
+            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-principals:
+              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 216080
+            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4.clar"
+            clarity-version: 3
+        - contract-publish:
+            contract-name: vault-tracker
+            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 76540
+            path: contracts/vault-tracker.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: liquidity-manager
+            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 33040
+            path: contracts/liquidity-manager.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: mock-usda
+            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 12360
+            path: contracts/mock-usda.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: nexoar-pricing
+            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 21260
+            path: contracts/nexoar-pricing.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: nexoar
+            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            cost: 110990
+            path: contracts/nexoar.clar
+            anchor-block-only: true
+            clarity-version: 3
+      epoch: "3.2"
