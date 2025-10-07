@@ -1,8 +1,8 @@
-# Nexoar: Decentralized Options Trading Protocol
+# Nexoar - Decentralized Options Trading Protocol
 
 Nexoar is a decentralized application for options trading on Stacks, featuring robust liquidity management. Users can provide liquidity to earn fees, and our locked liquidity mechanism ensures payouts are secure and predictable. The protocol includes a comprehensive, on-chain premium calculation logic designed for efficiency and transparency.
 
-## On-Chain Options Pricing: Rationale and Approach
+## On-Chain Options Pricing - Rationale and Approach
 
 Traditional options pricing models like Black-Scholes are mathematically complex and computationally expensive for on-chain execution. Nexoar’s formula is engineered to closely mimic Black-Scholes behavior while remaining practical for smart contracts. This approach balances accuracy and performance, enabling real-time, decentralized options pricing without the heavy resource demands of floating-point math and advanced functions.
 

@@ -61,7 +61,7 @@
         (size uint)
     )
     (begin
-        (asserts! (>= size PRECISION) ERR-INVALID-PRICE)
+        (asserts! (>= size u100) ERR-INVALID-PRICE)
         (let (
                 (spot-price (unwrap-panic (get-price price-feed)))
                 (premium (contract-call? .nexoar-pricing calculate-premium spot-price
@@ -136,7 +136,7 @@
             (asserts! (is-some option) ERR-OPTIONS-NOT-EXIST)
             (let (
                     (option-data (unwrap! option ERR-OPTIONS-NOT-EXIST))
-                    (is-excercised (get is-exercised option-data))
+                    (is-exercised (get is-exercised option-data))
                     (expiry (get expiry option-data))
                     (size (get size option-data))
                     (strike (get strike option-data))
@@ -147,7 +147,7 @@
                 )
                 (begin
                     (asserts! (is-eq owner tx-sender) ERR-NOT-OPTION-OWNER)
-                    (asserts! (not is-excercised) ERR-OPTION-EXERCISED)
+                    (asserts! (not is-exercised) ERR-OPTION-EXERCISED)
                     (asserts!
                         (> expiry (unwrap-panic (get-stacks-block-info? time u0)))
                         ERR-OPTION-NOT-EXPIRED
@@ -262,7 +262,7 @@
 ;; read only functions
 (define-read-only (calculate-locked-liquidity (premium uint))
     ;; TODO: need to readjust this formula
-    (ok (* u3 premium))
+    (ok (* u2 premium))
 )
 
 ;; private functions

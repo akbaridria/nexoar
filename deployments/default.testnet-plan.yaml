@@ -10,103 +10,47 @@ plan:
       transactions:
         - requirement-publish:
             contract-id: SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+            remap-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
             remap-principals:
-              SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
+              SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
             cost: 8400
             path: "./.cache/requirements/SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.clar"
             clarity-version: 1
       epoch: "2.0"
     - id: 1
       transactions:
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-traits-v2
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 5060
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-traits-v2.clar"
-            clarity-version: 3
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-traits-v2
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 18800
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-traits-v2.clar"
-            clarity-version: 3
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-governance-v3
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 237100
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-governance-v3.clar"
-            clarity-version: 3
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-oracle-v4
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 33910
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-oracle-v4.clar"
-            clarity-version: 3
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 129130
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-pnau-decoder-v3.clar"
-            clarity-version: 3
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-storage-v4
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 43230
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.pyth-storage-v4.clar"
-            clarity-version: 3
-        - requirement-publish:
-            contract-id: STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4
-            remap-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            remap-principals:
-              STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 216080
-            path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4.clar"
-            clarity-version: 3
         - contract-publish:
-            contract-name: vault-tracker
-            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 76540
+            contract-name: vault-tracker-v2-beta
+            expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
+            cost: 45042811
             path: contracts/vault-tracker.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: liquidity-manager
-            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 33040
+            contract-name: liquidity-manager-v2-beta
+            expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
+            cost: 44872991
             path: contracts/liquidity-manager.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: mock-usda
-            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 12360
+            contract-name: mock-usda-v2-beta
+            expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
+            cost: 44792124
             path: contracts/mock-usda.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: nexoar-pricing
-            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 21260
+            contract-name: nexoar-pricing-v2-beta
+            expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
+            cost: 44856818
             path: contracts/nexoar-pricing.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: nexoar
-            expected-sender: ST1TPQEP74MZ8BRFBQGFEAR8XR4098J110S74MDKV
-            cost: 110990
+            contract-name: nexoar-v2-beta
+            expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
+            cost: 45180285
             path: contracts/nexoar.clar
             anchor-block-only: true
             clarity-version: 3
