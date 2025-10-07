@@ -8,6 +8,8 @@ Traditional options pricing models like Black-Scholes are mathematically complex
 
 Below is a comparison between the Black-Scholes model and Nexoar’s on-chain formula:
 
+<img width="1000" height="600" alt="premium_comparison" src="https://github.com/user-attachments/assets/78cdedd2-d793-40b9-a1b6-3e41b2788c04" />
+
 
 ## Premium Calculation Logic
 
@@ -30,25 +32,25 @@ $$
 }_{\text{ATM time value}}
 \cdot
 \underbrace{
-\max\left(0,\ 1 - \frac{\text{moneyness\_pct}}{D_{\text{max}}}\right)
+\max\left(0,\ 1 - \frac{moneyness_{pct}}{D_{max}}\right)
 }_{\text{moneyness decay}}
 $$
 
 Where:
 
 - $\sigma = 0.80$ (annualized volatility, 80%)
-- $T = \frac{\text{duration\_days}}{365}$
+- $T = \frac{duration_{days}}{365}$
 - $C = 0.496$ (time value coefficient)
-- $\text{moneyness\_pct} = \frac{|\text{spot} - \text{strike}|}{\text{strike}}$
-- $D_{\text{max}} = 1.0$ (max moneyness distance, 100%)
+- $moneyness_{pct} = \frac{|spot - strike|}{strike}$
+- $D_{max} = 1.0$ (max moneyness distance, 100%)
 
 ### 3. Total Premium
+
 $$
 \text{Premium} = \text{Intrinsic} + \text{TimeValue}
 $$
 
+
 ### Try It Out
 
 Experience Nexoar live:
-
-[Try it out here](PLACE_YOUR_LINK_HERE)
