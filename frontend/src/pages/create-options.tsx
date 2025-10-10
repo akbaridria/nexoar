@@ -1,13 +1,13 @@
-import { useCallback, useMemo, useState } from "react";
-import { TAB_ITEMS, type FormCreateOption } from "@/types";
-import { TabsContent } from "./animate-ui/components/radix/tabs";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { type FormCreateOption } from "@/types";
 import {
+  Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,13 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import useApp from "@/hooks/use-app";
 import { DURATION_OPTIONS } from "@/configs/constant";
+import { useDebounceValue } from "usehooks-ts";
+import useReadAppState from "@/hooks/use-read-app-state";
 
 const CreateOptions = () => {
   const { btcPrice: currentBTCPrice } = useApp();
+  const { calculatePremium } = useReadAppState();
+
   const [formData, setFormData] = useState<FormCreateOption>({
     market: "BTC/USD",
     strikePrice: "",
@@ -53,11 +57,32 @@ const CreateOptions = () => {
     );
   }, [formData, currentBTCPrice]);
 
+  const [debouncedStrikePrice] = useDebounceValue(formData.strikePrice, 400);
+  const [debouncedDuration] = useDebounceValue(formData.duration, 400);
+  const [debouncedIsCall] = useDebounceValue(
+    formData.optionType === "call",
+    400
+  );
+
+  useEffect(() => {
+    if (debouncedStrikePrice) {
+      calculatePremium({
+        spotPrice: currentBTCPrice || 0,
+        strikePrice: Number(debouncedStrikePrice),
+        duration: debouncedDuration,
+        iscall: debouncedIsCall,
+      });
+    }
+  }, [
+    debouncedStrikePrice,
+    debouncedDuration,
+    debouncedIsCall,
+    currentBTCPrice,
+    calculatePremium,
+  ]);
+
   return (
-    <TabsContent
-      value={TAB_ITEMS.CREATE_OPTIONS}
-      className="flex flex-col gap-6"
-    >
+    <Card className="m-8">
       <CardHeader>
         <CardTitle className="text-xl">Create Options</CardTitle>
         <CardDescription>
@@ -131,7 +156,6 @@ const CreateOptions = () => {
           </div>
         </div>
 
-        {/* Strike Price */}
         <div className="grid gap-2">
           <Label htmlFor="strikePrice">Strike Price (USD)</Label>
           <Input
@@ -167,7 +191,6 @@ const CreateOptions = () => {
           )}
         </div>
 
-        {/* Duration */}
         <div className="grid gap-2">
           <Label>Duration</Label>
           <div className="grid grid-cols-4 gap-2">
@@ -182,6 +205,7 @@ const CreateOptions = () => {
                   setFormData({ ...formData, duration: option.value })
                 }
                 className="w-full"
+                size="sm"
               >
                 {option.label}
               </Button>
@@ -189,7 +213,6 @@ const CreateOptions = () => {
           </div>
         </div>
 
-        {/* Size */}
         <div className="grid gap-2">
           <Label htmlFor="size">Size (Minimum: 1)</Label>
           <Input
@@ -205,11 +228,16 @@ const CreateOptions = () => {
       </CardContent>
 
       <CardFooter>
-        <Button onClick={handleFormSubmit} className="w-full">
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={handleFormSubmit}
+          className="w-full"
+        >
           Create Option
         </Button>
       </CardFooter>
-    </TabsContent>
+    </Card>
   );
 };
 
