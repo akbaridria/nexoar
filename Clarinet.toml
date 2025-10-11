@@ -19,28 +19,28 @@ contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4'
 
 [[project.requirements]]
 contract_id = 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard'
-[contracts.liquidity-manager]
-path = 'contracts/liquidity-manager.clar'
+[contracts.liquidity-manager-v1-3-0]
+path = 'contracts/liquidity-manager-v1-3-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.mock-usda]
-path = 'contracts/mock-usda.clar'
+[contracts.mock-usda-v1-3-0]
+path = 'contracts/mock-usda-v1-3-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.nexoar]
-path = 'contracts/nexoar.clar'
+[contracts.nexoar-v1-3-0]
+path = 'contracts/nexoar-v1-3-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.nexoar-pricing]
-path = 'contracts/nexoar-pricing.clar'
+[contracts.nexoar-pricing-v1-3-0]
+path = 'contracts/nexoar-pricing-v1-3-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.vault-tracker]
-path = 'contracts/vault-tracker.clar'
+[contracts.vault-tracker-v1-3-0]
+path = 'contracts/vault-tracker-v1-3-0.clar'
 clarity_version = 3
 epoch = 'latest'
 [repl.analysis]
@@ -53,5 +53,5 @@ trusted_caller = false
 callee_filter = false
 
 [repl.remote_data]
-enabled = true
+enabled = false
 api_url = 'https://api.hiro.so'

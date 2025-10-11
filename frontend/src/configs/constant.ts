@@ -1,5 +1,5 @@
 import { TAB_ITEMS, type TabItem } from "@/types";
-import { Clock3Icon, DropletsIcon, SquareMenuIcon } from "lucide-react";
+import { DropletsIcon, HistoryIcon, SquareMenuIcon } from "lucide-react";
 
 export const LIST_TABS: Array<{
   key: TabItem;
@@ -22,7 +22,7 @@ export const LIST_TABS: Array<{
   {
     key: TAB_ITEMS.OPTIONS_HISTORY,
     label: "History",
-    icon: Clock3Icon,
+    icon: HistoryIcon,
     path: "/options-history",
   },
 ];
@@ -38,9 +38,10 @@ export const NEXOAR_CONTRACT_ADDRESS =
   "STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6";
 
 export const NEXOAR_CONTRACT_NAME = {
-  NEXOAR_PRICING: "nexoar-pricing-v2-beta",
-  NEXOAR_USDA: "mock-usda-v2-beta",
-  NEXOAR_LIQUIDITY: "liquidity-manager-v2-beta",
+  NEXOAR_PRICING: "nexoar-pricing-v1-3-0",
+  NEXOAR_USDA: "mock-usda-v1-3-0",
+  NEXOAR_CORE: "nexoar-v1-3-0",
+  NEXOAR_LIQUIDITY: "liquidity-manager-v1-3-0",
 } as const;
 
 export const PRECISION = 1_000_000;

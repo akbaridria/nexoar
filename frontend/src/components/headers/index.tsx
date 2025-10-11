@@ -31,8 +31,10 @@ const Header = () => {
       <div className="flex items-center gap-1">
         <Faucet />
         <Separator orientation="vertical" className="h-5!" />
-        <USDABalance />
-        <Separator orientation="vertical" className="h-5!" />
+        <span className="hidden md:inline-flex">
+          <USDABalance />
+          <Separator orientation="vertical" className="h-5!" />
+        </span>
         <GithubNexoar />
         <Separator orientation="vertical" className="h-5!" />
         <DisconnectWallet />

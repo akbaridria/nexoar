@@ -29,7 +29,9 @@
         (amount uint)
     )
     (begin
-        (asserts! (is-eq contract-caller .liquidity-manager) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .liquidity-manager-v1-3-0)
+            ERR-UNAUTHORIZED
+        )
         (asserts! (>= amount u0) ERR-INSUFFICIENT-BALANCE)
         (update-pool)
 
@@ -68,7 +70,9 @@
             (pending-rewards (get-pending-rewards provider))
         )
         (begin
-            (asserts! (is-eq contract-caller .liquidity-manager) ERR-UNAUTHORIZED)
+            (asserts! (is-eq contract-caller .liquidity-manager-v1-3-0)
+                ERR-UNAUTHORIZED
+            )
             (update-pool)
 
             (asserts! (<= amount effective-balance) ERR-INSUFFICIENT-BALANCE)
@@ -126,7 +130,9 @@
 
 (define-public (distribute-pnl (pnl int))
     (begin
-        (asserts! (is-eq contract-caller .liquidity-manager) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .liquidity-manager-v1-3-0)
+            ERR-UNAUTHORIZED
+        )
         (if (is-eq (var-get total-staked) u0)
             (ok true)
             (begin

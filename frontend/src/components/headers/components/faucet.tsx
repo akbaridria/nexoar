@@ -42,7 +42,7 @@ const Faucet = () => {
       <DialogTrigger asChild>
         <Button variant="ghost">
           <DropletIcon />
-          <div>Faucet</div>
+          <div className="hidden md:block">Faucet</div>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

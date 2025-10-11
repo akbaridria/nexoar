@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import {
   Tooltip,
   TooltipContent,
@@ -13,7 +14,7 @@ import { useMemo } from "react";
 
 const USDABalance = () => {
   const { getBalance } = useGetBalance();
-  const { data: balance } = useQuery({
+  const { data: balance, isLoading } = useQuery({
     queryKey: [QUERY_KEYS.USDA_BALANCE],
     queryFn: getBalance,
   });
@@ -30,7 +31,11 @@ const USDABalance = () => {
           <div className="w-4 h-4 aspect-square bg-primary rounded-full flex items-center justify-center text-xs text-background">
             $
           </div>
-          <div className="text-sm">{formattedBalance}</div>
+          {isLoading ? (
+            <Spinner className="h-4 w-4" />
+          ) : (
+            <div className="text-sm">{formattedBalance}</div>
+          )}
         </Button>
       </TooltipTrigger>
       <TooltipContent>

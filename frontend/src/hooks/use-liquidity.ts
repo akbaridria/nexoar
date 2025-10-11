@@ -1,8 +1,9 @@
 import {
   NEXOAR_CONTRACT_ADDRESS,
   NEXOAR_CONTRACT_NAME,
+  PRECISION,
 } from "@/configs/constant";
-import { getLocalStorage } from "@stacks/connect";
+import { getLocalStorage, request } from "@stacks/connect";
 import { Cl, fetchCallReadOnlyFunction } from "@stacks/transactions";
 import { useCallback } from "react";
 
@@ -18,12 +19,35 @@ const useLiquidity = () => {
       senderAddress: senderAddress,
       network: "testnet",
     })) as { type: string; value: { type: string; value: bigint } };
+    console.log(res, "res");
     return res?.value?.value;
   }, [senderAddress]);
 
-  const addLiquidity = useCallback(() => {}, []);
+  const addLiquidity = useCallback((amount: number) => {
+    const res = request("stx_callContract", {
+      contract: `${NEXOAR_CONTRACT_ADDRESS}.${NEXOAR_CONTRACT_NAME.NEXOAR_CORE}`,
+      functionName: "add-liquidity",
+      functionArgs: [Cl.uint(amount * PRECISION)],
+      network: "testnet",
+      postConditionMode: "allow",
+    });
+    return res;
+  }, []);
+
+  const removeLiquidity = useCallback((amount: number) => {
+    const res = request("stx_callContract", {
+      contract: `${NEXOAR_CONTRACT_ADDRESS}.${NEXOAR_CONTRACT_NAME.NEXOAR_CORE}`,
+      functionName: "remove-liquidity",
+      functionArgs: [Cl.uint(amount * PRECISION)],
+      network: "testnet",
+      postConditionMode: "allow",
+    });
+    return res;
+  }, []);
+
   return {
     addLiquidity,
+    removeLiquidity,
     getProviderInfo,
   };
 };

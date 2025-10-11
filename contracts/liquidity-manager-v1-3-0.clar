@@ -17,9 +17,10 @@
         (amount uint)
     )
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar-v1-3-0) ERR-UNAUTHORIZED)
         (asserts! (> amount u0) ERR-INVALID-AMOUNT)
-        (unwrap! (contract-call? .vault-tracker add-stake provider amount)
+        (unwrap!
+            (as-contract (contract-call? .vault-tracker-v1-3-0 add-stake provider amount))
             ERR-INVALID-AMOUNT
         )
         (var-set total-liquidity (+ (var-get total-liquidity) amount))
@@ -32,8 +33,11 @@
         (amount uint)
     )
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
-        (let ((actual-amount (unwrap! (contract-call? .vault-tracker remove-stake provider amount)
+        (asserts! (is-eq contract-caller .nexoar-v1-3-0) ERR-UNAUTHORIZED)
+        (let ((actual-amount (unwrap!
+                (as-contract (contract-call? .vault-tracker-v1-3-0 remove-stake provider
+                    amount
+                ))
                 ERR-INVALID-AMOUNT
             )))
             (asserts! (<= actual-amount (var-get total-liquidity))
@@ -47,7 +51,7 @@
 
 (define-public (lock-liquidity (amount uint))
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar-v1-3-0) ERR-UNAUTHORIZED)
         (asserts!
             (<= (+ (var-get locked-liquidity) amount) (var-get total-liquidity))
             ERR-INSUFFICIENT-LIQUIDITY
@@ -59,7 +63,7 @@
 
 (define-public (unlock-liquidity (amount uint))
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
+        (asserts! (is-eq contract-caller .nexoar-v1-3-0) ERR-UNAUTHORIZED)
         (asserts! (>= (var-get locked-liquidity) amount) ERR-INVALID-UNLOCK)
         (var-set locked-liquidity (- (var-get locked-liquidity) amount))
         (ok true)
@@ -68,8 +72,9 @@
 
 (define-public (distribute-pnl (pnl-amount int))
     (begin
-        (asserts! (is-eq contract-caller .nexoar) ERR-UNAUTHORIZED)
-        (unwrap! (contract-call? .vault-tracker distribute-pnl pnl-amount)
+        (asserts! (is-eq contract-caller .nexoar-v1-3-0) ERR-UNAUTHORIZED)
+        (unwrap!
+            (as-contract (contract-call? .vault-tracker-v1-3-0 distribute-pnl pnl-amount))
             ERR-INVALID-AMOUNT
         )
         (if (>= pnl-amount 0)
@@ -94,7 +99,7 @@
 )
 
 (define-read-only (get-provider-balance (provider principal))
-    (let ((info (unwrap-panic (contract-call? .vault-tracker get-provider-info provider))))
+    (let ((info (unwrap-panic (contract-call? .vault-tracker-v1-3-0 get-provider-info provider))))
         (ok (get effective-balance info))
     )
 )

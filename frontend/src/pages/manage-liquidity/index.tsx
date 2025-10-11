@@ -14,6 +14,7 @@ import { QUERY_KEYS } from "@/configs/query-keys";
 import { useMemo } from "react";
 import { formatCompactNumber } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
+import { PRECISION } from "@/configs/constant";
 
 const ManageLiquidity = () => {
   const { getProviderInfo } = useLiquidity();
@@ -23,7 +24,7 @@ const ManageLiquidity = () => {
   });
 
   const formattedBalance = useMemo(() => {
-    if (data) return formatCompactNumber(Number(data));
+    if (data) return formatCompactNumber(Number(data) / PRECISION);
     return "0";
   }, [data]);
   return (
@@ -63,7 +64,7 @@ const ManageLiquidity = () => {
             </TabsContent>
 
             <TabsContent value="remove" className="pt-4">
-              <RemoveLiquidity />
+              <RemoveLiquidity balance={data ? Number(data) : 0} />
             </TabsContent>
           </Tabs>
         </CardContent>
