@@ -2,7 +2,7 @@ import Layout from "@/layouts";
 import CreateOptions from "@/pages/create-options";
 import ManageLiquidity from "@/pages/manage-liquidity";
 import OptionsHistory from "@/pages/options-history";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +12,7 @@ const router = createBrowserRouter([
       { index: true, element: <CreateOptions /> },
       { path: "manage-liquidity", element: <ManageLiquidity /> },
       { path: "options-history", element: <OptionsHistory /> },
+      { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
 ]);

@@ -22,7 +22,7 @@ const useReadAppState = () => {
     }) => {
       try {
         const localStorageData = getLocalStorage();
-        console.log(spotPrice * PRECISION, strikePrice * PRECISION, duration, iscall);
+
         const res = await fetchCallReadOnlyFunction({
           contractAddress: NEXOAR_CONTRACT_ADDRESS,
           contractName: NEXOAR_CONTRACT_NAME.NEXOAR_PRICING,
@@ -36,7 +36,7 @@ const useReadAppState = () => {
           senderAddress: localStorageData?.addresses?.stx?.[0]?.address || "",
           network: "testnet",
         });
-        console.log(res);
+        return res;
       } catch (error) {
         console.log("Error calculating premium:", error);
       }

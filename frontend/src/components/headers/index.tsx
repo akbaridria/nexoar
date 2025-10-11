@@ -1,6 +1,11 @@
 import { LIST_TABS } from "@/configs/constant";
-import { Button } from "./ui/button";
 import { useLocation, useNavigate } from "react-router";
+import { Button } from "../ui/button";
+import Faucet from "./components/faucet";
+import { Separator } from "../ui/separator";
+import USDABalance from "./components/usda-balance";
+import DisconnectWallet from "./components/disconnect-wallet";
+import GithubNexoar from "./components/github-nexoar";
 
 const Header = () => {
   const location = useLocation();
@@ -23,7 +28,15 @@ const Header = () => {
           ))}
         </div>
       </div>
-      <div>this is wallet connection </div>
+      <div className="flex items-center gap-1">
+        <Faucet />
+        <Separator orientation="vertical" className="h-5!" />
+        <USDABalance />
+        <Separator orientation="vertical" className="h-5!" />
+        <GithubNexoar />
+        <Separator orientation="vertical" className="h-5!" />
+        <DisconnectWallet />
+      </div>
     </div>
   );
 };
