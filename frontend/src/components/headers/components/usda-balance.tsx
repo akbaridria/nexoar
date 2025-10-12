@@ -14,7 +14,12 @@ import { useMemo } from "react";
 
 const USDABalance = () => {
   const { getBalance } = useGetBalance();
-  const { data: balance, isLoading } = useQuery({
+  const {
+    data: balance,
+    isLoading,
+    isRefetching,
+    refetch,
+  } = useQuery({
     queryKey: [QUERY_KEYS.USDA_BALANCE],
     queryFn: getBalance,
   });
@@ -27,11 +32,15 @@ const USDABalance = () => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          className="flex items-center gap-2"
+          onClick={() => refetch()}
+        >
           <div className="w-4 h-4 aspect-square bg-primary rounded-full flex items-center justify-center text-xs text-background">
             $
           </div>
-          {isLoading ? (
+          {isLoading || isRefetching ? (
             <Spinner className="h-4 w-4" />
           ) : (
             <div className="text-sm">{formattedBalance}</div>

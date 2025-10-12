@@ -1,3 +1,4 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -5,7 +6,7 @@ import { QUERY_KEYS } from "@/configs/query-keys";
 import useLiquidity from "@/hooks/use-liquidity";
 import { formatCompactNumber } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Minus } from "lucide-react";
+import { CircleAlertIcon, Minus } from "lucide-react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
@@ -21,7 +22,7 @@ const RemoveLiquidity: React.FC<RemoveLiquidityProps> = ({ balance }) => {
     onSuccess: () => {
       setTimeout(() => {
         queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.USER_LIQUIDITY],
+          queryKey: [QUERY_KEYS.USER_LIQUIDITY, QUERY_KEYS.PLATFORM_LIQUIDITY],
         });
         toast.success("Successfully removed liquidity");
         setAmount("");
@@ -38,6 +39,15 @@ const RemoveLiquidity: React.FC<RemoveLiquidityProps> = ({ balance }) => {
 
   return (
     <div className="space-y-4">
+      <Alert>
+        <CircleAlertIcon />
+        <AlertTitle>Withdrawal Info</AlertTitle>
+        <AlertDescription>
+          If the total available liquidity is lower than the amount you want to
+          withdraw, you must wait until the option is exercised to release
+          liquidity.
+        </AlertDescription>
+      </Alert>
       <div className="space-y-2">
         <Label htmlFor="remove-amount">Amount</Label>
         <Input

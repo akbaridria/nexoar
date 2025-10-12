@@ -1,4 +1,4 @@
-import { TAB_ITEMS, type TabItem } from "@/types";
+import { TAB_ITEMS, type FormCreateOption, type TabItem } from "@/types";
 import { DropletsIcon, HistoryIcon, SquareMenuIcon } from "lucide-react";
 
 export const LIST_TABS: Array<{
@@ -45,3 +45,11 @@ export const NEXOAR_CONTRACT_NAME = {
 } as const;
 
 export const PRECISION = 1_000_000;
+
+export const DEFAULT_FORM_VALUES: FormCreateOption = {
+  market: "BTC/USD",
+  strikePrice: "",
+  duration: 1,
+  optionType: "call",
+  size: 1,
+};

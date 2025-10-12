@@ -13,4 +13,5 @@ export interface FormCreateOption {
   duration: number;
   size: number;
   market: string;
+  premium?: number;
 }

@@ -21,21 +21,22 @@ const useReadAppState = () => {
       iscall: boolean;
     }) => {
       try {
+        if (!spotPrice || !strikePrice || !duration) return;
+        const currentPrice = Math.floor(spotPrice);
         const localStorageData = getLocalStorage();
-
-        const res = await fetchCallReadOnlyFunction({
+        const res = (await fetchCallReadOnlyFunction({
           contractAddress: NEXOAR_CONTRACT_ADDRESS,
           contractName: NEXOAR_CONTRACT_NAME.NEXOAR_PRICING,
           functionName: "calculate-premium",
           functionArgs: [
-            Cl.uint(spotPrice * PRECISION),
+            Cl.uint(currentPrice * PRECISION),
             Cl.uint(strikePrice * PRECISION),
             Cl.uint(duration),
             Cl.bool(iscall),
           ],
           senderAddress: localStorageData?.addresses?.stx?.[0]?.address || "",
           network: "testnet",
-        });
+        })) as { type: string; value: bigint };
         return res;
       } catch (error) {
         console.log("Error calculating premium:", error);

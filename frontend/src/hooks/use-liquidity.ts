@@ -19,7 +19,30 @@ const useLiquidity = () => {
       senderAddress: senderAddress,
       network: "testnet",
     })) as { type: string; value: { type: string; value: bigint } };
-    console.log(res, "res");
+    return res?.value?.value;
+  }, [senderAddress]);
+
+  const getTotalLiquidity = useCallback(async () => {
+    const res = (await fetchCallReadOnlyFunction({
+      contractAddress: NEXOAR_CONTRACT_ADDRESS,
+      contractName: NEXOAR_CONTRACT_NAME.NEXOAR_LIQUIDITY,
+      functionName: "get-total-liquidity",
+      functionArgs: [],
+      senderAddress: senderAddress,
+      network: "testnet",
+    })) as { type: string; value: { type: string; value: bigint } };
+    return res?.value?.value;
+  }, [senderAddress]);
+
+  const getAvailableLiquidity = useCallback(async () => {
+    const res = (await fetchCallReadOnlyFunction({
+      contractAddress: NEXOAR_CONTRACT_ADDRESS,
+      contractName: NEXOAR_CONTRACT_NAME.NEXOAR_LIQUIDITY,
+      functionName: "get-available-liquidity",
+      functionArgs: [],
+      senderAddress: senderAddress,
+      network: "testnet",
+    })) as { type: string; value: { type: string; value: bigint } };
     return res?.value?.value;
   }, [senderAddress]);
 
@@ -49,6 +72,8 @@ const useLiquidity = () => {
     addLiquidity,
     removeLiquidity,
     getProviderInfo,
+    getTotalLiquidity,
+    getAvailableLiquidity,
   };
 };
 

@@ -17,7 +17,7 @@ const AddLiquidity = () => {
     onSuccess: () => {
       setTimeout(() => {
         queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.USER_LIQUIDITY],
+          queryKey: [QUERY_KEYS.USER_LIQUIDITY, QUERY_KEYS.PLATFORM_LIQUIDITY],
         });
         toast.success("Successfully added liquidity");
         setAmount("");
