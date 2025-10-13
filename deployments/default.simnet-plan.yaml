@@ -106,28 +106,28 @@ plan:
             path: "./.cache/requirements/STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4.clar"
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: vault-tracker-v1-3-0
+            contract-name: vault-tracker-v1-4-0
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/vault-tracker-v1-3-0.clar
+            path: contracts/vault-tracker-v1-4-0.clar
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: liquidity-manager-v1-3-0
+            contract-name: liquidity-manager-v1-4-0
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/liquidity-manager-v1-3-0.clar
+            path: contracts/liquidity-manager-v1-4-0.clar
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: mock-usda-v1-3-0
+            contract-name: mock-usda-v1-4-0
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/mock-usda-v1-3-0.clar
+            path: contracts/mock-usda-v1-4-0.clar
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: nexoar-pricing-v1-3-0
+            contract-name: nexoar-pricing-v1-4-0
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/nexoar-pricing-v1-3-0.clar
+            path: contracts/nexoar-pricing-v1-4-0.clar
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: nexoar-v1-3-0
+            contract-name: nexoar-v1-4-0
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/nexoar-v1-3-0.clar
+            path: contracts/nexoar-v1-4-0.clar
             clarity-version: 3
       epoch: "3.2"

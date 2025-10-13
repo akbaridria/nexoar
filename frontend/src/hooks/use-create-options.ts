@@ -7,6 +7,7 @@ import { handleFetchLatestVaa } from "@/lib/utils";
 import { request } from "@stacks/connect";
 import { Cl } from "@stacks/transactions";
 import { useCallback } from "react";
+import { toast } from "sonner";
 
 const useCreateOptions = () => {
   const createOption = useCallback(
@@ -21,22 +22,25 @@ const useCreateOptions = () => {
       isCall: boolean;
       size: number;
     }) => {
-      const { latestVaaHex } = await handleFetchLatestVaa();
-      const res = await request("stx_callContract", {
-        contract: `${NEXOAR_CONTRACT_ADDRESS}.${NEXOAR_CONTRACT_NAME.NEXOAR_CORE}`,
-        functionArgs: [
-          Cl.bufferFromHex(latestVaaHex),
-          Cl.uint(strikePrice * PRECISION),
-          Cl.uint(days),
-          Cl.bool(isCall),
-          Cl.uint(size * 100),
-        ],
-        network: "testnet",
-        functionName: "create-option",
-        postConditionMode: "allow",
-      });
-
-      return res;
+      try {
+        const { latestVaaHex } = await handleFetchLatestVaa();
+        const res = await request("stx_callContract", {
+          contract: `${NEXOAR_CONTRACT_ADDRESS}.${NEXOAR_CONTRACT_NAME.NEXOAR_CORE}`,
+          functionArgs: [
+            Cl.bufferFromHex(latestVaaHex),
+            Cl.uint(strikePrice * PRECISION),
+            Cl.uint(days),
+            Cl.bool(isCall),
+            Cl.uint(size * 100),
+          ],
+          network: "testnet",
+          functionName: "create-option",
+          postConditionMode: "allow",
+        });
+        return res;
+      } catch {
+        toast.error("Failed to get latest VAA, please try again.");
+      }
     },
     []
   );

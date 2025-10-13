@@ -132,9 +132,6 @@ const OptionForm = () => {
       setFormData(DEFAULT_FORM_VALUES);
       invalidateQueries({ queryKey: [QUERY_KEYS.PLATFORM_LIQUIDITY] });
     },
-    onError: () => {
-      toast.error("Failed to create option");
-    },
   });
 
   const [premium, setPremium] = useState<number | undefined>(undefined);

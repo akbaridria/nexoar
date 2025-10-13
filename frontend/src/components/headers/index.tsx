@@ -35,7 +35,13 @@ const Header = () => {
           <USDABalance />
           <Separator orientation="vertical" className="h-5!" />
         </span>
-        <GithubNexoar />
+        <a
+          href="https://github.com/akbaridria/nexoar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <GithubNexoar />
+        </a>
         <Separator orientation="vertical" className="h-5!" />
         <DisconnectWallet />
       </div>
