@@ -4,14 +4,29 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/src/index.js",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:drop": "drizzle-kit drop"
   },
   "dependencies": {
+    "@hirosystems/chainhook-client": "^2.4.0",
     "@hono/node-server": "^1.19.5",
-    "hono": "^4.9.12"
+    "@neondatabase/serverless": "^1.0.2",
+    "@pythnetwork/hermes-client": "^2.0.0",
+    "@stacks/transactions": "^7.2.0",
+    "@stacks/wallet-sdk": "^7.2.0",
+    "axios": "^1.12.2",
+    "bullmq": "^5.61.0",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.6",
+    "hono": "^4.9.12",
+    "pino": "^10.0.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "drizzle-kit": "^0.31.5",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
   }

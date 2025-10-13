@@ -1,7 +1,6 @@
 {
   "name": "nexoar-core",
   "chain": "stacks",
-  "uuid": "a0f9ed8d-f44f-4e79-98fc-591b6aa6503c",
   "version": 1,
   "networks": {
     "testnet": {
@@ -13,11 +12,11 @@
       "end_block": null,
       "then_that": {
         "http_post": {
-          "url": "http://localhost:8787/webhook",
+          "url": "https://nexoar-api.akbaridria.cloud/user-history",
           "authorization_header": ""
         }
       },
-      "start_block": 3593684,
+      "start_block": 3597321,
       "decode_clarity_values": true,
       "expire_after_occurrence": null
     }

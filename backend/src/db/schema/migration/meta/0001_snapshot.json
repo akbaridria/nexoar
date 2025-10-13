@@ -1,0 +1,53 @@
+{
+  "id": "c076e9a5-1a7a-463a-a4f6-b1e2f7655d67",
+  "prevId": "ed54f042-9702-4afe-a3b8-db7f5f317b4d",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.user-history": {
+      "name": "user-history",
+      "schema": "",
+      "columns": {
+        "wallet_address": {
+          "name": "wallet_address",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "option_id": {
+          "name": "option_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "wallet_option_unique": {
+          "name": "wallet_option_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "wallet_address",
+            "option_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
