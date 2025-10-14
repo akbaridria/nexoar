@@ -10,6 +10,12 @@ const userService = new UserService(new UserRepository());
 
 routes.get("/", (c) => c.text("Hello!"));
 
+routes.get("/user-history/:address", async (c) => {
+  const { address } = c.req.param();
+  const history = await userService.findByWalletAddress(address);
+  return c.json(history);
+});
+
 routes.post("/user-history", async (c) => {
   const payload: StacksPayload = await c.req.json();
   const results = serializeStacksPayload(payload);
