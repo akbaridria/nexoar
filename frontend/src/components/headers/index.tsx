@@ -12,7 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-center justify-between sticky top-0 bg-background px-4 py-6">
+    <div className="flex items-center justify-between sticky z-10 top-0 bg-background px-4 py-6">
       <div className="flex items-center gap-4">
         <img src="/nexoar.svg" alt="Nexoar Logo" className="w-6 h-6" />
         <div className="flex items-center gap-2">

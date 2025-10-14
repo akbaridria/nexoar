@@ -1,5 +1,19 @@
 # Nexoar - Decentralized Options Trading Protocol
 
+## Project Folder Structure
+
+- [`frontend/`](./frontend)  
+  The UI for Nexoar. Built with ReactJs, includes all user-facing pages and components.
+
+- [`backend/`](./backend)  
+  Backend service for exercising options, handling event management queues and off-chain logic.
+
+- [`chainhook/`](./chainhook)  
+  Contains predicates and chainhook scripts for Nexoar, used to trigger backend actions based on on-chain events.
+
+- [`contracts/`](./contracts)  
+  Clarity smart contracts for Nexoar, including liquidity management, options logic, vault tracking, and mock assets.
+
 Nexoar is a decentralized application for options trading on Stacks, featuring robust liquidity management. Users can provide liquidity to earn fees, and our locked liquidity mechanism ensures payouts are secure and predictable. The protocol includes a comprehensive, on-chain premium calculation logic designed for efficiency and transparency.
 
 ## On-Chain Options Pricing - Rationale and Approach
