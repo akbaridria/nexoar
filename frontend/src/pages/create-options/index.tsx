@@ -11,10 +11,9 @@ const CreateOptions = () => {
         <div>
           <AlertTitle>Option Creation Issue</AlertTitle>
           <AlertDescription>
-            Creating an option may fail if the latest VAA cannot be retrieved
-            due to performance issues with the Hermes public API (Pyth Network).
-            If you encounter this error, please try again until the process
-            succeeds.
+            Option creation may fail if the latest VAA (price update) cannot be
+            retrieved from the Hermes public API (Pyth Network). If this
+            happens, please retry the process until it succeeds.
           </AlertDescription>
         </div>
       </Alert>

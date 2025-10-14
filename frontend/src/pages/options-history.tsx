@@ -14,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import {
   ArrowUpRight,
   ArrowDownRight,
@@ -100,7 +100,7 @@ const RowTable: React.FC<{ optId: number }> = ({ optId }) => {
         </Badge>
       </TableCell>
       <TableCell>{formatCurrency(opt.strike)}</TableCell>
-      <TableCell>{format(opt.expiry * 1000, "MMM d, yyyy")}</TableCell>
+      <TableCell>{formatDistanceToNow(opt.expiry * 1000, { addSuffix: true })}</TableCell>
       <TableCell>{opt.size}</TableCell>
       <TableCell>{formatCurrency(opt.premium)} </TableCell>
       <TableCell>{formatCurrency(opt.lockedLiquidity)}</TableCell>

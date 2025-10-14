@@ -67,4 +67,4 @@ $$
 
 ### Try It Out
 
-Experience Nexoar live:
+Experience Nexoar live: [here](https://nexoar.vercel.app)
