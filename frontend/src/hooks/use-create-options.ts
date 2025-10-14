@@ -40,6 +40,7 @@ const useCreateOptions = () => {
         return res;
       } catch {
         toast.error("Failed to get latest VAA, please try again.");
+        throw new Error("Failed to get latest VAA");
       }
     },
     []
