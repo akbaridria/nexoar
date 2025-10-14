@@ -12,7 +12,7 @@ const useFaucet = () => {
   const faucet = useCallback(async () => {
     const res = await request("stx_callContract", {
       contract: `${NEXOAR_CONTRACT_ADDRESS}.${NEXOAR_CONTRACT_NAME.NEXOAR_USDA}`,
-      functionArgs: [Cl.uint(10_000 * PRECISION), Cl.address(senderAddress)],
+      functionArgs: [Cl.uint(10_000_000 * PRECISION), Cl.address(senderAddress)],
       network: "testnet",
       functionName: "mint",
       postConditionMode: "deny",
