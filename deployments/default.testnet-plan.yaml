@@ -20,38 +20,38 @@ plan:
     - id: 1
       transactions:
         - contract-publish:
-            contract-name: vault-tracker-v1-5-0
+            contract-name: vault-tracker-v1-6-0
             expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
             cost: 77460
-            path: contracts/vault-tracker-v1-5-0.clar
+            path: contracts/vault-tracker-v1-6-0.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: liquidity-manager-v1-5-0
+            contract-name: liquidity-manager-v1-6-0
             expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
             cost: 34860
-            path: contracts/liquidity-manager-v1-5-0.clar
+            path: contracts/liquidity-manager-v1-6-0.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: mock-usda-v1-5-0
+            contract-name: mock-usda-v1-6-0
             expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
             cost: 12360
-            path: contracts/mock-usda-v1-5-0.clar
+            path: contracts/mock-usda-v1-6-0.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: nexoar-pricing-v1-5-0
+            contract-name: nexoar-pricing-v1-6-0
             expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
             cost: 29100
-            path: contracts/nexoar-pricing-v1-5-0.clar
+            path: contracts/nexoar-pricing-v1-6-0.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
-            contract-name: nexoar-v1-5-0
+            contract-name: nexoar-v1-6-0
             expected-sender: STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6
-            cost: 124980
-            path: contracts/nexoar-v1-5-0.clar
+            cost: 124990
+            path: contracts/nexoar-v1-6-0.clar
             anchor-block-only: true
             clarity-version: 3
       epoch: "3.2"

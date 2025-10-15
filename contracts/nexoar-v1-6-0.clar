@@ -64,7 +64,7 @@
         (asserts! (>= size u100) ERR-INVALID-PRICE)
         (let (
                 (spot-price (unwrap-panic (get-price price-feed)))
-                (premium (contract-call? .nexoar-pricing-v1-5-0 calculate-premium
+                (premium (contract-call? .nexoar-pricing-v1-6-0 calculate-premium
                     spot-price strike-price days is-call
                 ))
                 (total-premium (/ (* size premium) u100))
@@ -78,16 +78,16 @@
             (begin
                 (asserts!
                     (<= locked-liquidity
-                        (unwrap-panic (contract-call? .liquidity-manager-v1-5-0
+                        (unwrap-panic (contract-call? .liquidity-manager-v1-6-0
                             get-available-liquidity
                         ))
                     )
                     ERR-INSUFFICIENT-LIQUIDITY
                 )
-                (try! (contract-call? .mock-usda-v1-5-0 transfer total-premium
+                (try! (contract-call? .mock-usda-v1-6-0 transfer total-premium
                     tx-sender (as-contract tx-sender) none
                 ))
-                (try! (as-contract (contract-call? .liquidity-manager-v1-5-0 lock-liquidity
+                (try! (as-contract (contract-call? .liquidity-manager-v1-6-0 lock-liquidity
                     locked-liquidity
                 )))
 
@@ -150,7 +150,7 @@
                     (asserts! (is-eq owner tx-sender) ERR-NOT-OPTION-OWNER)
                     (asserts! (not is-exercised) ERR-OPTION-EXERCISED)
                     (asserts!
-                        (> expiry
+                        (<= expiry
                             (unwrap-panic (get-stacks-block-info? time
                                 (- stacks-block-height u1)
                             ))
@@ -159,7 +159,7 @@
                     )
                     (let (
                             (spot-price (unwrap-panic (get-price price-feed)))
-                            (payout (unwrap-panic (contract-call? .nexoar-pricing-v1-5-0
+                            (payout (unwrap-panic (contract-call? .nexoar-pricing-v1-6-0
                                 calculate-payout spot-price strike is-call
                                 size
                             )))
@@ -182,11 +182,11 @@
                                     (to-int liquidity-fee)
                                 )))
                                 (begin
-                                    (try! (as-contract (contract-call? .liquidity-manager-v1-5-0
+                                    (try! (as-contract (contract-call? .liquidity-manager-v1-6-0
                                         distribute-pnl liquidity-pnl
                                     )))
                                     (if (> payout u0)
-                                        (try! (contract-call? .mock-usda-v1-5-0
+                                        (try! (contract-call? .mock-usda-v1-6-0
                                             transfer payout
                                             (as-contract tx-sender) owner
                                             none
@@ -223,11 +223,11 @@
 (define-public (add-liquidity (amount uint))
     (begin
         (asserts! (> amount u0) ERR-INVALID-PRICE)
-        (try! (contract-call? .mock-usda-v1-5-0 transfer amount tx-sender
+        (try! (contract-call? .mock-usda-v1-6-0 transfer amount tx-sender
             (as-contract tx-sender) none
         ))
         (let ((original-sender tx-sender))
-            (try! (as-contract (contract-call? .liquidity-manager-v1-5-0 add-liquidity
+            (try! (as-contract (contract-call? .liquidity-manager-v1-6-0 add-liquidity
                 original-sender amount
             )))
         )
@@ -244,12 +244,12 @@
     (begin
         (asserts! (> amount u0) ERR-INVALID-PRICE)
         (let ((original-sender tx-sender))
-            (try! (as-contract (contract-call? .liquidity-manager-v1-5-0 remove-liquidity
+            (try! (as-contract (contract-call? .liquidity-manager-v1-6-0 remove-liquidity
                 original-sender amount
             )))
         )
         (let ((recipient tx-sender))
-            (try! (as-contract (contract-call? .mock-usda-v1-5-0 transfer amount tx-sender recipient
+            (try! (as-contract (contract-call? .mock-usda-v1-6-0 transfer amount tx-sender recipient
                 none
             )))
         )
@@ -270,7 +270,7 @@
                 (asserts! (> amount u0) ERR-NO-REVENUE)
                 (var-set protocol-revenue u0)
                 (let ((original-sender tx-sender))
-                    (try! (as-contract (contract-call? .mock-usda-v1-5-0 transfer amount tx-sender
+                    (try! (as-contract (contract-call? .mock-usda-v1-6-0 transfer amount tx-sender
                         recipient none
                     )))
                 )

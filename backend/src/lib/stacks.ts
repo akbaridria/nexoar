@@ -6,7 +6,7 @@ import type {
   StacksTransactionSmartContractEvent,
 } from "@hirosystems/chainhook-client";
 import { NEXOAR_CORE_CONTRACT, NEXOAR_CORE_CONTRACT_ADDRESS, NEXOAR_CORE_CONTRACT_NAME } from "./constant.js";
-import { Cl, makeContractCall } from "@stacks/transactions";
+import { broadcastTransaction, Cl, makeContractCall } from "@stacks/transactions";
 import { generateWallet } from "@stacks/wallet-sdk";
 import env from "./env.js";
 import { handleFetchLatestVaa } from "./hermes.js";
@@ -86,6 +86,8 @@ const exerciseOption = async (optionId: number) => {
     network: "testnet",
     postConditionMode: "allow",
   });
+
+  await broadcastTransaction({ transaction });
 
   return transaction;
 };

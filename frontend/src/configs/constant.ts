@@ -38,10 +38,10 @@ export const NEXOAR_CONTRACT_ADDRESS =
   "STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6";
 
 export const NEXOAR_CONTRACT_NAME = {
-  NEXOAR_PRICING: "nexoar-pricing-v1-5-0",
-  NEXOAR_USDA: "mock-usda-v1-5-0",
-  NEXOAR_CORE: "nexoar-v1-5-0",
-  NEXOAR_LIQUIDITY: "liquidity-manager-v1-5-0",
+  NEXOAR_PRICING: "nexoar-pricing-v1-6-0",
+  NEXOAR_USDA: "mock-usda-v1-6-0",
+  NEXOAR_CORE: "nexoar-v1-6-0",
+  NEXOAR_LIQUIDITY: "liquidity-manager-v1-6-0",
 } as const;
 
 export const PRECISION = 1_000_000;
