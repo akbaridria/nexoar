@@ -2,6 +2,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PRECISION } from "@/configs/constant";
 import { QUERY_KEYS } from "@/configs/query-keys";
 import useLiquidity from "@/hooks/use-liquidity";
 import { formatCompactNumber } from "@/lib/utils";
@@ -58,7 +59,7 @@ const RemoveLiquidity: React.FC<RemoveLiquidityProps> = ({ balance }) => {
           onChange={(e) => setAmount(e.target.value)}
         />
         <p className="text-xs">
-          Available: {formatCompactNumber(balance)} mUSDA
+          Available: {balance ? formatCompactNumber(balance / PRECISION) : 0} mUSDA
         </p>
       </div>
       <Button
