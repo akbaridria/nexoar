@@ -7,7 +7,7 @@
       "if_this": {
         "scope": "contract_call",
         "method": "create-option",
-        "contract_identifier": "STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6.nexoar-v1-6-0"
+        "contract_identifier": "STWHP9XFF0H1KGMNAE06BYZ59BJRWANFQ5V9QYT6.nexoar-v1-7-0"
       },
       "end_block": null,
       "then_that": {

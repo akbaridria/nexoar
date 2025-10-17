@@ -19,28 +19,28 @@ contract_id = 'STR738QQX1PVTM6WTDF833Z18T8R0ZB791TCNEFM.wormhole-core-v4'
 
 [[project.requirements]]
 contract_id = 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard'
-[contracts.liquidity-manager-v1-6-0]
-path = 'contracts/liquidity-manager-v1-6-0.clar'
+[contracts.liquidity-manager-v1-7-0]
+path = 'contracts/liquidity-manager-v1-7-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.mock-usda-v1-6-0]
-path = 'contracts/mock-usda-v1-6-0.clar'
+[contracts.mock-usda-v1-7-0]
+path = 'contracts/mock-usda-v1-7-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.nexoar-pricing-v1-6-0]
-path = 'contracts/nexoar-pricing-v1-6-0.clar'
+[contracts.nexoar-pricing-v1-7-0]
+path = 'contracts/nexoar-pricing-v1-7-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.nexoar-v1-6-0]
-path = 'contracts/nexoar-v1-6-0.clar'
+[contracts.nexoar-v1-7-0]
+path = 'contracts/nexoar-v1-7-0.clar'
 clarity_version = 3
 epoch = 'latest'
 
-[contracts.vault-tracker-v1-6-0]
-path = 'contracts/vault-tracker-v1-6-0.clar'
+[contracts.vault-tracker-v1-7-0]
+path = 'contracts/vault-tracker-v1-7-0.clar'
 clarity_version = 3
 epoch = 'latest'
 [repl.analysis]
