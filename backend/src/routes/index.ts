@@ -29,7 +29,7 @@ routes.post("/user-history", async (c) => {
       name: `process-option-${r.optionId}`,
       data: { optionId: r.optionId, expiry: r.expiry },
       opts: {
-        delay: Math.max(r.expiry * 1000 - Date.now(), 0),
+        delay: Math.max(r.expiry * 1000 - Date.now() + 360000, 0), // add buffer of 1 block (~6minutes)
         backoff: { type: "exponential", delay: 60000 },
         attempts: 5,
       },
